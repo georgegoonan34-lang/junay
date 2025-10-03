@@ -13,8 +13,8 @@ import yt_dlp
 import sys
 
 # Configure CustomTkinter appearance
-ctk.set_appearance_mode("System")  # Use system appearance for better macOS compatibility
-ctk.set_default_color_theme("blue")  # Blue theme (can be changed to "green" or "dark-blue")
+ctk.set_appearance_mode("dark")  # Force dark mode for beautiful iOS-like design
+ctk.set_default_color_theme("blue")  # Will override with custom purple colors
 
 
 class JunayDownloader(ctk.CTk):
@@ -39,97 +39,120 @@ class JunayDownloader(ctk.CTk):
         self.update_idletasks()
 
     def setup_ui(self):
-        """Create and arrange all UI elements"""
+        """Create and arrange all UI elements with beautiful iOS-style dark mode design"""
 
-        # Main container with padding
-        # Explicit colors for macOS compatibility
-        main_frame = ctk.CTkFrame(self, corner_radius=0, fg_color=("gray95", "gray10"))
-        main_frame.pack(fill="both", expand=True, padx=20, pady=20)
+        # iOS-style color palette - deep dark with purple accents
+        BG_DARK = "#1a1a1a"  # Deep dark background
+        CARD_BG = "#2a2a2a"  # Card/section background
+        PURPLE_PRIMARY = "#8B5CF6"  # Beautiful purple accent
+        PURPLE_HOVER = "#7C3AED"  # Darker purple for hover
+        TEXT_PRIMARY = "#FFFFFF"  # White text
+        TEXT_SECONDARY = "#A0A0A0"  # Gray text
 
-        # Header/Title Section
+        # Main container with deep dark background
+        self.configure(fg_color=BG_DARK)
+        main_frame = ctk.CTkFrame(self, corner_radius=0, fg_color=BG_DARK)
+        main_frame.pack(fill="both", expand=True, padx=30, pady=30)
+
+        # Header Section - Clean and minimal
         title_label = ctk.CTkLabel(
             main_frame,
-            text="⚡ JUNAY 4K DOWNLOADER ⚡",
-            font=ctk.CTkFont(size=32, weight="bold"),
-            text_color=("#1f6aa5", "#4a9eff")  # Gradient-like blue
+            text="JUNAY 4K",
+            font=ctk.CTkFont(size=38, weight="bold"),
+            text_color=PURPLE_PRIMARY
         )
-        title_label.pack(pady=(0, 10))
+        title_label.pack(pady=(0, 5))
 
         subtitle_label = ctk.CTkLabel(
             main_frame,
-            text="Download YouTube videos in stunning 4K quality",
-            font=ctk.CTkFont(size=14),
-            text_color="gray70"
+            text="Download YouTube videos in stunning quality",
+            font=ctk.CTkFont(size=13),
+            text_color=TEXT_SECONDARY
         )
-        subtitle_label.pack(pady=(0, 30))
+        subtitle_label.pack(pady=(0, 35))
 
-        # URL Input Section
-        url_frame = ctk.CTkFrame(main_frame, corner_radius=10)
-        url_frame.pack(fill="x", pady=(0, 20))
+        # URL Input Section - Smooth rounded card
+        url_frame = ctk.CTkFrame(main_frame, corner_radius=16, fg_color=CARD_BG)
+        url_frame.pack(fill="x", pady=(0, 16))
 
         url_label = ctk.CTkLabel(
             url_frame,
-            text="📺 YouTube URL:",
-            font=ctk.CTkFont(size=16, weight="bold")
+            text="YouTube URL",
+            font=ctk.CTkFont(size=13, weight="bold"),
+            text_color=TEXT_PRIMARY
         )
-        url_label.pack(anchor="w", padx=20, pady=(15, 5))
+        url_label.pack(anchor="w", padx=24, pady=(20, 8))
 
-        # URL entry with placeholder
+        # URL entry with smooth edges
         self.url_entry = ctk.CTkEntry(
             url_frame,
-            placeholder_text="Paste YouTube video URL here...",
-            height=45,
-            font=ctk.CTkFont(size=14),
-            border_width=2
+            placeholder_text="https://youtube.com/watch?v=...",
+            height=50,
+            font=ctk.CTkFont(size=13),
+            border_width=0,
+            corner_radius=12,
+            fg_color="#333333",
+            text_color=TEXT_PRIMARY,
+            placeholder_text_color=TEXT_SECONDARY
         )
-        self.url_entry.pack(fill="x", padx=20, pady=(0, 15))
+        self.url_entry.pack(fill="x", padx=24, pady=(0, 20))
 
-        # Quality Selection Section
-        quality_frame = ctk.CTkFrame(main_frame, corner_radius=10)
-        quality_frame.pack(fill="x", pady=(0, 20))
+        # Quality Selection Section - iOS-style card
+        quality_frame = ctk.CTkFrame(main_frame, corner_radius=16, fg_color=CARD_BG)
+        quality_frame.pack(fill="x", pady=(0, 16))
 
         quality_label = ctk.CTkLabel(
             quality_frame,
-            text="🎬 Video Quality:",
-            font=ctk.CTkFont(size=16, weight="bold")
+            text="Video Quality",
+            font=ctk.CTkFont(size=13, weight="bold"),
+            text_color=TEXT_PRIMARY
         )
-        quality_label.pack(anchor="w", padx=20, pady=(15, 5))
+        quality_label.pack(anchor="w", padx=24, pady=(20, 8))
 
-        # Quality dropdown
-        self.quality_var = ctk.StringVar(value="2160p (4K)")  # Default to 4K
+        # Quality dropdown with purple accent
+        self.quality_var = ctk.StringVar(value="2160p (4K)")
         self.quality_menu = ctk.CTkOptionMenu(
             quality_frame,
             values=["2160p (4K)", "1440p (2K)", "1080p (Full HD)", "720p (HD)", "Best Available"],
             variable=self.quality_var,
-            height=40,
-            font=ctk.CTkFont(size=14),
-            dropdown_font=ctk.CTkFont(size=12)
+            height=50,
+            corner_radius=12,
+            font=ctk.CTkFont(size=13),
+            dropdown_font=ctk.CTkFont(size=12),
+            fg_color="#333333",
+            button_color=PURPLE_PRIMARY,
+            button_hover_color=PURPLE_HOVER,
+            text_color=TEXT_PRIMARY
         )
-        self.quality_menu.pack(fill="x", padx=20, pady=(0, 15))
+        self.quality_menu.pack(fill="x", padx=24, pady=(0, 20))
 
-        # Download Location Section
-        location_frame = ctk.CTkFrame(main_frame, corner_radius=10)
-        location_frame.pack(fill="x", pady=(0, 20))
+        # Download Location Section - Smooth card
+        location_frame = ctk.CTkFrame(main_frame, corner_radius=16, fg_color=CARD_BG)
+        location_frame.pack(fill="x", pady=(0, 16))
 
         location_label = ctk.CTkLabel(
             location_frame,
-            text="📁 Save Location:",
-            font=ctk.CTkFont(size=16, weight="bold")
+            text="Save Location",
+            font=ctk.CTkFont(size=13, weight="bold"),
+            text_color=TEXT_PRIMARY
         )
-        location_label.pack(anchor="w", padx=20, pady=(15, 5))
+        location_label.pack(anchor="w", padx=24, pady=(20, 8))
 
-        # Location display and browse button container
-        # Removed fg_color="transparent" for macOS compatibility
-        location_container = ctk.CTkFrame(location_frame, fg_color=location_frame.cget("fg_color"))
-        location_container.pack(fill="x", padx=20, pady=(0, 15))
+        # Location display and browse button - iOS-style
+        location_container = ctk.CTkFrame(location_frame, fg_color="transparent")
+        location_container.pack(fill="x", padx=24, pady=(0, 20))
 
         self.location_display = ctk.CTkEntry(
             location_container,
-            height=40,
+            height=50,
             font=ctk.CTkFont(size=12),
+            corner_radius=12,
+            border_width=0,
+            fg_color="#333333",
+            text_color=TEXT_PRIMARY,
             state="readonly"
         )
-        self.location_display.pack(side="left", fill="x", expand=True, padx=(0, 10))
+        self.location_display.pack(side="left", fill="x", expand=True, padx=(0, 12))
         self.location_display.configure(state="normal")
         self.location_display.insert(0, self.download_path)
         self.location_display.configure(state="readonly")
@@ -137,52 +160,60 @@ class JunayDownloader(ctk.CTk):
         browse_btn = ctk.CTkButton(
             location_container,
             text="Browse",
-            width=100,
-            height=40,
-            font=ctk.CTkFont(size=14),
+            width=110,
+            height=50,
+            corner_radius=12,
+            font=ctk.CTkFont(size=13, weight="bold"),
+            fg_color=PURPLE_PRIMARY,
+            hover_color=PURPLE_HOVER,
+            text_color=TEXT_PRIMARY,
             command=self.browse_location
         )
         browse_btn.pack(side="right")
 
-        # Progress Section
-        self.progress_frame = ctk.CTkFrame(main_frame, corner_radius=10)
+        # Progress Section - Minimal design
+        self.progress_frame = ctk.CTkFrame(main_frame, corner_radius=16, fg_color=CARD_BG)
         self.progress_frame.pack(fill="x", pady=(0, 20))
 
         self.progress_label = ctk.CTkLabel(
             self.progress_frame,
             text="Ready to download",
-            font=ctk.CTkFont(size=14),
-            text_color="gray70"
+            font=ctk.CTkFont(size=13),
+            text_color=TEXT_SECONDARY
         )
-        self.progress_label.pack(pady=(15, 5))
+        self.progress_label.pack(pady=(20, 10))
 
-        # Progress bar
+        # Progress bar with purple accent
         self.progress_bar = ctk.CTkProgressBar(
             self.progress_frame,
-            height=20,
-            corner_radius=10
+            height=8,
+            corner_radius=4,
+            fg_color="#333333",
+            progress_color=PURPLE_PRIMARY
         )
-        self.progress_bar.pack(fill="x", padx=20, pady=(0, 15))
-        self.progress_bar.set(0)  # Start at 0%
+        self.progress_bar.pack(fill="x", padx=24, pady=(0, 20))
+        self.progress_bar.set(0)
 
-        # Download Button
+        # Download Button - Bold and beautiful purple
         self.download_btn = ctk.CTkButton(
             main_frame,
-            text="⬇️  DOWNLOAD VIDEO",
-            height=60,
-            font=ctk.CTkFont(size=20, weight="bold"),
-            fg_color=("#1f6aa5", "#4a9eff"),
-            hover_color=("#16537e", "#357abd"),
+            text="Download Video",
+            height=56,
+            corner_radius=14,
+            font=ctk.CTkFont(size=16, weight="bold"),
+            fg_color=PURPLE_PRIMARY,
+            hover_color=PURPLE_HOVER,
+            text_color=TEXT_PRIMARY,
             command=self.start_download
         )
-        self.download_btn.pack(fill="x", pady=(0, 15))
+        self.download_btn.pack(fill="x", pady=(0, 20))
 
-        # Footer/Credits
+        # Footer - Minimal credits
         credits_label = ctk.CTkLabel(
             main_frame,
-            text="Built by George for Junay 💙 | Powered by yt-dlp",
-            font=ctk.CTkFont(size=11),
-            text_color="gray50"
+            text="Built by George for Junay  •  Powered by yt-dlp",
+            font=ctk.CTkFont(size=10),
+            text_color="#505050"
         )
         credits_label.pack(pady=(0, 0))
 
