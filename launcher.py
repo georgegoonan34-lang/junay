@@ -13,9 +13,60 @@ from waitress import serve
 from app import app
 
 def open_browser():
-    """Wait for server to start, then open browser"""
+    """Wait for server to start, then open browser with proper window size"""
     time.sleep(2)  # Wait for server to initialize
-    webbrowser.open('http://127.0.0.1:5001')
+
+    # Try to open with specific size using browser-specific methods
+    # Chrome/Edge on Windows: Use --window-size flag
+    import subprocess
+    import platform
+
+    url = 'http://127.0.0.1:5001'
+
+    # On Windows, try to launch Chrome/Edge with specific window size
+    if platform.system() == 'Windows':
+        # Try Chrome first
+        chrome_paths = [
+            r'C:\Program Files\Google\Chrome\Application\chrome.exe',
+            r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
+            os.path.expanduser(r'~\AppData\Local\Google\Chrome\Application\chrome.exe'),
+        ]
+
+        # Try Edge if Chrome not found
+        edge_paths = [
+            r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',
+            r'C:\Program Files\Microsoft\Edge\Application\msedge.exe',
+        ]
+
+        launched = False
+
+        # Try Chrome with window size
+        for chrome_path in chrome_paths:
+            if os.path.exists(chrome_path):
+                try:
+                    subprocess.Popen([chrome_path, '--app=' + url, '--window-size=800,900'])
+                    launched = True
+                    break
+                except:
+                    pass
+
+        # Try Edge if Chrome failed
+        if not launched:
+            for edge_path in edge_paths:
+                if os.path.exists(edge_path):
+                    try:
+                        subprocess.Popen([edge_path, '--app=' + url, '--window-size=800,900'])
+                        launched = True
+                        break
+                    except:
+                        pass
+
+        # Fall back to default browser
+        if not launched:
+            webbrowser.open(url)
+    else:
+        # For non-Windows, use default browser
+        webbrowser.open(url)
 
 def main():
     """Main entry point for the launcher"""
