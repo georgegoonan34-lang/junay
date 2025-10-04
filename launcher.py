@@ -40,11 +40,11 @@ def open_browser():
 
         launched = False
 
-        # Try Chrome with window size
+        # Try Chrome with window size (no app mode to allow scrolling and resizing)
         for chrome_path in chrome_paths:
             if os.path.exists(chrome_path):
                 try:
-                    subprocess.Popen([chrome_path, '--app=' + url, '--window-size=800,900'])
+                    subprocess.Popen([chrome_path, url, '--window-size=900,800', '--new-window'])
                     launched = True
                     break
                 except:
@@ -55,7 +55,7 @@ def open_browser():
             for edge_path in edge_paths:
                 if os.path.exists(edge_path):
                     try:
-                        subprocess.Popen([edge_path, '--app=' + url, '--window-size=800,900'])
+                        subprocess.Popen([edge_path, url, '--window-size=900,800', '--new-window'])
                         launched = True
                         break
                     except:
