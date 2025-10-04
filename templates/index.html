@@ -321,7 +321,7 @@
                 progressText.textContent = 'Processing... (merging video & audio)';
                 progressBar.style.width = '100%';
             } else if (data.status === 'completed') {
-                progressText.textContent = `✅ Download Complete! "${data.title}"`;
+                progressText.textContent = `Download Complete! "${data.title}"`;
                 progressBar.style.width = '100%';
                 downloadBtn.disabled = false;
                 downloadBtn.textContent = 'Download Video';
@@ -334,7 +334,7 @@
 
                 showMessage(`Successfully downloaded "${data.title}" to your Downloads folder!`, 'success');
             } else if (data.status === 'error') {
-                progressText.textContent = '❌ Download Failed';
+                progressText.textContent = 'Download Failed';
                 progressBar.style.width = '0%';
                 downloadBtn.disabled = false;
                 downloadBtn.textContent = 'Download Video';
