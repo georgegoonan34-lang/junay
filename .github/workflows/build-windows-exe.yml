@@ -50,4 +50,4 @@ jobs:
     - name: Get file size
       run: |
         $size = (Get-Item dist/JunayDownloader.exe).length / 1MB
-        Write-Output "✅ Build complete! File size: $([math]::Round($size, 2)) MB"
+        Write-Output "Build complete! File size: $([math]::Round($size, 2)) MB"
