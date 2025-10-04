@@ -40,14 +40,14 @@ def build_exe():
         '--noconfirm',                              # Overwrite without asking
     ]
 
-    print("📦 Configuration:")
+    print("Configuration:")
     print(f"   - Main script: launcher.py")
     print(f"   - Output name: JunayDownloader.exe")
     print(f"   - Type: Single file executable")
     print(f"   - Mode: Windowed (no console)")
     print(f"   - Includes: Flask templates, all dependencies")
     print()
-    print("🔨 Building... (this may take 2-5 minutes)")
+    print("Building... (this may take 2-5 minutes)")
     print()
 
     # Run PyInstaller
@@ -55,22 +55,22 @@ def build_exe():
 
     print()
     print("=" * 70)
-    print("  ✅ BUILD COMPLETE!")
+    print("  BUILD COMPLETE!")
     print("=" * 70)
     print()
-    print(f"📦 Your executable is ready:")
+    print(f"Your executable is ready:")
     print(f"   Location: {os.path.join(os.getcwd(), 'dist', 'JunayDownloader.exe')}")
     print()
-    print("📤 Next steps:")
+    print("Next steps:")
     print("   1. Go to the 'dist' folder")
     print("   2. Find 'JunayDownloader.exe'")
     print("   3. Send it to Junay via Google Drive, Dropbox, or WeTransfer")
     print("   4. Junay just needs to download and double-click it!")
     print()
-    print("💡 Tips:")
+    print("Tips:")
     print("   - File size will be ~60-80MB (includes Python + all dependencies)")
     print("   - Junay needs NO installation - just run the .exe")
-    print("   - Windows might show SmartScreen warning (click 'More info' → 'Run anyway')")
+    print("   - Windows might show SmartScreen warning (click 'More info' -> 'Run anyway')")
     print("   - The app will auto-open in his default browser")
     print()
 
