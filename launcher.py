@@ -79,8 +79,8 @@ def main():
     browser_thread = threading.Thread(target=open_browser, daemon=True)
     browser_thread.start()
 
-    print("\n✓ Server started!")
-    print("✓ Opening browser...")
+    print("\nServer started!")
+    print("Opening browser...")
     print("\nThe app is now running at: http://127.0.0.1:5001")
     print("\nPress CTRL+C to stop the server\n")
 
